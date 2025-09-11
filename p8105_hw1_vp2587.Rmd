@@ -6,6 +6,14 @@ output: github_document
 ---
 
 ## Problem 1
+```{r setup, include = FALSE}
+library(moderndive)
+library(tidyverse)
+data("early_january_weather")
+```
 
+```{r}
+early_january_weather
+```
 
 ## Problem 2
