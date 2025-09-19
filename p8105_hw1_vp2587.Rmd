@@ -29,7 +29,7 @@ This dataset has `r nrow(early_january_weather)` rows and `r ncol(early_january_
 
 Make a scatterplot of temp (y) vs time_hour (x); color points using the humid variable (adding color = ... inside of aes in your ggplot code should help). Describe patterns that are apparent in this plot.
 
-```{r}
+```{r scatterplot}
 ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
   geom_point() +
   labs(
@@ -44,7 +44,7 @@ The temperatures generally rise during the daytime and decline overnight. Humidi
 
 Export your scatterplot to your project directory using ggsave.
   
-```{r}
+```{r export}
 ggsave("early_jan_weather_scatterplot.pdf")
 ```
 
@@ -61,11 +61,12 @@ Create a data frame comprised of:
 
 4) A factor vector of length 10, with 3 different factor “levels”
 
-```{r}
+```{r df}
 set.seed(1)
-problem_2_df <- tibble(
-  norm = rnorm(10),
-  log_vec = norm > 0,
+problem_2_df =
+  tibble(
+  normal = rnorm(10),
+  log_vec = normal > 0,
   char = sample(letters, 10),
   factor_3 = factor(
     sample(c("Low","Med","High"), 10, replace = TRUE),
@@ -75,4 +76,45 @@ problem_2_df <- tibble(
 problem_2_df
 ```
 
+Try to take the mean of each variable in your dataframe. What works and what doesn’t?
 
+Hint: for now, to take the mean of a variable in a dataframe, you need to pull the variable out of the dataframe. Try loading the tidyverse and using the pull function.
+
+```{r pulling mean}
+problem_2_df %>%
+  pull(normal) %>%
+  mean()
+
+problem_2_df %>%
+  pull(log_vec) %>%
+  mean()
+
+problem_2_df %>%
+  pull(char) %>%
+  mean()
+
+problem_2_df %>%
+  pull(factor_3) %>%
+  mean()
+```
+Using the `pull` function, the mean of the standard normal distribution and logical vector can be obtained. However, the character and factor vectors do not return a mean. 
+
+In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the `as.numeric` function to the logical, character, and factor variables (please show this chunk but not the output). What happens, and why? Does this help explain what happens when you try to take the mean?
+
+```{r numeric, eval = FALSE}
+problem_2_df %>%
+  pull(log_vec) %>%
+  as.numeric() %>%
+  mean()
+
+problem_2_df %>%
+  pull(char) %>%
+  as.numeric() %>%
+  mean()
+
+problem_2_df %>%
+  pull(factor_3) %>%
+  as.numeric() %>%
+  mean()
+```
+When applying the `as.numeric` function, the logical vector has its values changed such that `TRUE` becomes `1`, and `FALSE` becomes `0`. Therefore, the mean of this vector is attributable to the proportion of `TRUEs` in the data. The character vector still does not yield a mean. However, if the strings are similar to numbers, they will be interpreted and converted into numbers, yielding a mean. In this specific example, the character vector samples from the letters from the alphabet. The factor vector returns the internal integer codes. That is, `Low`, `Med`, and `High`, are converted into `1`, `2`, and `3`, respectively. The mean is taken from those numbers.
