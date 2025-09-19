@@ -43,5 +43,36 @@ ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
 The temperatures generally rise during the daytime and decline overnight. Humidity appears to have an inverse relationship with weather, recording its highest values during the night. Over the span of days, as the daily temperatures slightly increase, humidity also tends to be higher.
 
 Export your scatterplot to your project directory using ggsave.
+  
+```{r}
+ggsave("early_jan_weather_scatterplot.pdf")
+```
 
 ## Problem 2
+This problem is intended to emphasize variable types and introduce coercion; some awareness of how R treats numeric, character, and factor variables is necessary for working with these data types in practice.
+
+Create a data frame comprised of:
+
+1) A random sample of size 10 from a standard Normal distribution
+
+2) A logical vector indicating whether elements of the sample are greater than 0
+
+3) A character vector of length 10
+
+4) A factor vector of length 10, with 3 different factor “levels”
+
+```{r}
+set.seed(1)
+problem_2_df <- tibble(
+  norm = rnorm(10),
+  log_vec = norm > 0,
+  char = sample(letters, 10),
+  factor_3 = factor(
+    sample(c("Low","Med","High"), 10, replace = TRUE),
+    levels = c("Low","Med","High")
+  )
+)
+problem_2_df
+```
+
+
