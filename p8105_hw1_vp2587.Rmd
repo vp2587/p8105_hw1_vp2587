@@ -5,8 +5,8 @@ date: "2025-09-11"
 output: github_document
 ---
 
-## Problem 1
-Load the moderndive library, and use the following code to load the `early_january_weather` dataset:
+## Problem 1 
+##### Load the moderndive library, and use the following code to load the `early_january_weather` dataset:
 ```{r setup, include = FALSE}
 library(moderndive)
 library(tidyverse)
@@ -17,17 +17,11 @@ data("early_january_weather")
 early_january_weather
 ```
 
-Write a short description of the dataset using inline R code; accessing the dataset help file can be informative. In your discussion, please include:
-
-1) The variables in this dataset, including names / values of important variables
-
-2) The size of the dataset (using nrow and ncol)
-
-3) The mean temperature
+##### Write a short description of the dataset using inline R code; accessing the dataset help file can be informative. In your discussion, please include, the variables in this dataset, including names / values of important variables, the size of the dataset (using nrow and ncol), and the mean temperature
 
 This dataset has `r nrow(early_january_weather)` rows and `r ncol(early_january_weather)` columns. It covers the hourly temperature measurements at Newark Liberty (`r (unique(early_january_weather$origin))`) International airport on from January `r min(early_january_weather$day)` to `r max(early_january_weather$day)`. Important variables in this dataset include `temp` (temperature), `dewp` (dew point), `humid` (relative humidity), `wind_dir` (wind direction), `wind_speed`, `wind_gust`, `precip` (rainfall), `pressure`, and `visib` (visibility). The mean temperature over this period is `r mean(early_january_weather$temp)` °F.
 
-Make a scatterplot of temp (y) vs time_hour (x); color points using the humid variable (adding color = ... inside of aes in your ggplot code should help). Describe patterns that are apparent in this plot.
+##### Make a scatterplot of temp (y) vs time_hour (x); color points using the humid variable (adding color = ... inside of aes in your ggplot code should help). Describe patterns that are apparent in this plot.
 
 ```{r scatterplot}
 ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
@@ -42,24 +36,14 @@ ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
 ```
 The temperatures generally rise during the daytime and decline overnight. Humidity appears to have an inverse relationship with weather, recording its highest values during the night. Over the span of days, as the daily temperatures slightly increase, humidity also tends to be higher.
 
-Export your scatterplot to your project directory using ggsave.
+##### Export your scatterplot to your project directory using ggsave.
   
 ```{r export}
 ggsave("early_jan_weather_scatterplot.pdf")
 ```
 
 ## Problem 2
-This problem is intended to emphasize variable types and introduce coercion; some awareness of how R treats numeric, character, and factor variables is necessary for working with these data types in practice.
-
-Create a data frame comprised of:
-
-1) A random sample of size 10 from a standard Normal distribution
-
-2) A logical vector indicating whether elements of the sample are greater than 0
-
-3) A character vector of length 10
-
-4) A factor vector of length 10, with 3 different factor “levels”
+##### This problem is intended to emphasize variable types and introduce coercion; some awareness of how R treats numeric, character, and factor variables is necessary for working with these data types in practice. Create a data frame comprised of a random sample of size 10 from a standard Normal distribution, a logical vector indicating whether elements of the sample are greater than 0, a character vector of length 10, and a factor vector of length 10, with 3 different factor “levels”
 
 ```{r df}
 set.seed(1)
@@ -76,9 +60,9 @@ problem_2_df =
 problem_2_df
 ```
 
-Try to take the mean of each variable in your dataframe. What works and what doesn’t?
+##### Try to take the mean of each variable in your dataframe. What works and what doesn’t?
 
-Hint: for now, to take the mean of a variable in a dataframe, you need to pull the variable out of the dataframe. Try loading the tidyverse and using the pull function.
+##### Hint: for now, to take the mean of a variable in a dataframe, you need to pull the variable out of the dataframe. Try loading the tidyverse and using the pull function.
 
 ```{r pulling mean}
 problem_2_df %>%
@@ -99,7 +83,7 @@ problem_2_df %>%
 ```
 Using the `pull` function, the mean of the standard normal distribution and logical vector can be obtained. However, the character and factor vectors do not return a mean. 
 
-In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the `as.numeric` function to the logical, character, and factor variables (please show this chunk but not the output). What happens, and why? Does this help explain what happens when you try to take the mean?
+##### In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the `as.numeric` function to the logical, character, and factor variables (please show this chunk but not the output). What happens, and why? Does this help explain what happens when you try to take the mean?
 
 ```{r numeric, eval = FALSE}
 problem_2_df %>%
